@@ -1,8 +1,11 @@
 import Pobranie_logow
 
-x = Pobranie_logow.czas_trwania()
+x = Pobranie_logow.zwroc_prawidlowe()
 print(x)
-
+n = Pobranie_logow.slownik_temperatur()
+print(n)
+i = Pobranie_logow.czas_trwania()
+print(i)
 
 
 

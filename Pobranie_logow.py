@@ -26,9 +26,9 @@ for i in logi:
     daty.append(logi_pomocnicza[x][0])
     czasy.append(logi_pomocnicza[x][1])
     temperatury.append(logi_pomocnicza[x][2])
-    temperatury = [i.strip('C') for i in temperatury]
-    temperatury_edit = [s.replace(".", "") for s in temperatury]
-    daty_edit = [n.replace('-', '') for n in daty]
+    temperatury = [t.strip('C') for t in temperatury]
+    temperatury_edit = [t.replace(".", "") for t in temperatury]
+    daty_edit = [d.replace('-', '') for d in daty]
     czasy_edit = [c.replace(':', '') for c in czasy]
     x += 1
 
@@ -82,21 +82,23 @@ def zwroc_prawidlowe():
     return logi
 
 def czas_trwania():
-    prawidlowe_logi = zwroc_prawidlowe()
-    czasy = []
-    n = 0
-    for i in prawidlowe_logi:
-        czasy.append(prawidlowe_logi[n][1])
-        n += 1
-    if len(czasy) > 1 :
-        start = time.strftime("%H:%M", time.strptime(czasy[0], "%H:%M"))
-        stop = time.strftime("%H:%M", time.strptime(czasy[-1], "%H:%M"))
-        czas_raportu = str(datetime.strptime(stop, "%H:%M") - datetime.strptime(start, "%H:%M"))[8:12]
-    else:
-        czas_raportu = 0
-    return czas_raportu
-
-    ##czas_raportu = datetime.strptime(czasy[-1], "%H:%M") - datetime.strptime(czasy[0], "%H:%M")
-
-def temp_max():
-    pass
+    data_czas = []
+    for x in logi:
+        for n in x:
+            x.pop()
+        data_czas.append(x)
+        x.append(n)
+    
+def slownik_temperatur():
+   slownik = {"max": None, "min": None, "srednia": None}
+   temperatury = []
+   n = 0
+   for i in logi:
+       temperatury.append(logi[n][2])
+       n += 1
+   temperatury = [t.strip('C') for t in temperatury]
+   temperatury_float = list(map(float, temperatury))
+   slownik["max"] = max(temperatury_float)
+   slownik["min"] = min(temperatury_float)
+   slownik["srednia"] = round(sum(temperatury_float) / len(temperatury_float), 1)
+   return slownik
