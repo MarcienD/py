@@ -1,6 +1,7 @@
 from datetime import datetime
 import copy
 
+
 o = open("wejscie.txt")
 logi = o.read()
 logi = logi.split('\n')
@@ -74,7 +75,7 @@ def zwroc_prawidlowe():
     return logi
 
 def czas_trwania():
-    dane = zwroc_prawidlowe()
+    dane = logi
     data_czas = []
     for x in dane:
         for c in x:
@@ -105,7 +106,7 @@ def slownik_temperatur():
    slownik["max"] = str(max(temperatury_float))
    slownik["min"] = str(min(temperatury_float))
    slownik["srednia"] = str(round(sum(temperatury_float) / len(temperatury_float), 1))
-   ##return slownik
+   return slownik
 
 def licz_okresy_przegrzania():
     liczba_okresow_przegrzania = 0
