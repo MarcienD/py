@@ -9,7 +9,6 @@ logi = [l.split(' ') for l in logi]
 
 a = ['', '', '']
 logi_pomocnicza = copy.deepcopy(logi)
-
 n = 0
 for x in logi_pomocnicza:
     y = logi_pomocnicza[n].extend(a)
@@ -24,7 +23,7 @@ for i in logi:
     daty.append(logi_pomocnicza[x][0])
     czasy.append(logi_pomocnicza[x][1])
     temperatury.append(logi_pomocnicza[x][2])
-    temperatury = [t.strip('C') for t in temperatury]
+    temperatury_edit = [t.strip('C') for t in temperatury]
     temperatury_edit = [t.replace(".", "") for t in temperatury]
     daty_edit = [d.replace('-', '') for d in daty]
     czasy_edit = [c.replace(':', '') for c in czasy]
@@ -35,31 +34,12 @@ def czy_wadliwe():
     wadliwe = []
     i = 0
     for data in daty:
-        if daty_edit[i].isdigit():
-            pass
-        else:
+        if not daty_edit[i].isdigit() or not czasy_edit[i].isdigit() or not temperatury_edit[i].isdigit():
             wadliwe.append(logi[i])
-        i += 1
-
-    i = 0
-    for czas in czasy:
-        if czasy_edit[i].isdigit():
-            pass
         else:
-            wadliwe.append(logi[i])
+            pass
         i += 1
-
-    i = 0
-    for temperatura in temperatury_edit:
-        if temperatury_edit[i].isdigit():
-            if float(temperatury_edit[i]) > 0:
-                pass
-        else: wadliwe.append(logi[i])
-        i += 1
-
-    wadliwe_logi = []
-    [wadliwe_logi.append(log) for log in wadliwe if log not in wadliwe_logi]
-    return wadliwe_logi
+    return wadliwe
 
 def licz_procent_wadliwych():
     wadliwe_logi = czy_wadliwe()
